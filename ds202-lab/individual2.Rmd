@@ -1,0 +1,72 @@
+---
+title: "Team"
+author: "YangfanCai/yangfanc"
+date: "2/19/2020"
+output: html_document
+---
+
+
+
+```{r}
+dat <- readxl::read_xls('~/Downloads/GSS-1.xls')
+head(dat)
+dat$'Gss year for this respondent'
+
+```
+
+```{r}
+# the long column names are inconvenient
+names(dat) <-c('year','Political','marital','party','happy','sex','political')
+head(dat)
+```
+
+```{r}
+library(classdata)
+library(ggplot2)
+str(happy)
+```
+
+
+```{r}
+#1
+ggplot(dat, aes(x= marital, fill = happy)) + geom_bar(position = 'fill')
+```
+
+
+```{r}
+##2
+ggplot(dat, aes(x = marital, fill=happy)) + geom_bar(position ='fill')+ facet_wrap(~sex)
+```
+
+```{r}
+## 3.
+ggplot(dat, aes(x = political, fill = happy)) +coord_flip() + geom_bar(position = 'fill')
+```
+
+
+```{r}
+install.packages('readxl')
+dat1 <- readxl::read_xls('~/Downloads/GSS-2.xls')
+names(dat1) <-c('year','rate','marital','age','happy','sex','political','party')
+head(dat1)
+# 4
+
+```
+```{r}
+library(classdata)
+library(ggplot2)
+
+# quetion:the age and marital have any relationship base on happy?
+ggplot(dat1, aes(x=age, fill=marital)) + geom_bar(position ='fill')+ facet_wrap(~happy)
+# summary:we though this plot can be found that the rate of happy from the white are more than other rate. 
+
+```
+
+```{r}
+# question: politial have any relationship with marital
+ggplot(dat, aes(x = political, fill = marital)) + geom_bar(position ='fill')
+#summary : base on the plot, we can found that matital and politial have more relationship, it is newar to 0.5.
+```
+
+
+
