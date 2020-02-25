@@ -1,0 +1,70 @@
+```{r}
+library(ggplot2)
+
+dat <- readxl::read_xls('GSS.xls')
+
+dat <- na.omit(dat)
+
+names(dat) <- c("Year", "Income",  "Happy", "Political", "Race", "Sex", "Age", "Marital", "ID", "Ballot")
+```
+
+
+# 1
+
+
+```{r}
+ggplot(dat, aes(x = Marital, fill = Happy)) + geom_bar(position = "fill")
+```
+
+In general, most people are pretty happy, however, married individuals tend to have more very happy individuals and less not too happy individuals.
+
+# 2
+
+```{r}
+ggplot(dat, aes(x = Marital, fill = Happy)) + geom_bar(position = "fill") + facet_wrap(~Sex)
+
+```
+
+The sex of the respondent seems to have very little impact on the happiness level by marital status. The only significant difference came in the 'no answer' category, which seems negligible due to not being very insightful.
+
+# 3 
+
+```{r}
+ggplot(dat, aes(x = Political, fill = Happy)) + coord_flip() + geom_bar(position = "fill")
+```
+
+People who don't know their political affiliation tend to be very happy more than others, followed by strong republicans.Additionally, the group that does not know their affiliation has a higher proportion of individuals who are not to happy and a minimal amount that are pretty happy. Otherwise, the distribution is as discussed earlier, with most individuals in the pretty happy category.
+
+# 4 
+
+## Q1: Are people with higher income happier?
+
+```{r}
+ggplot(dat, aes(x = Happy, y = Income)) + geom_boxplot()
+```
+
+From this we can conclude that the ceiling of income increases with happiness, while the the rest of the distribution remains quite similar. Note that the not too happy group has a noticably lower income distribution.
+
+## Q2: Have political affiliations changed throughout the years?
+
+```{r}
+ggplot(dat, aes(x = Political, y = Year)) + geom_violin()
+```
+
+From this graph, we can see that from the mid 1970's to mid 1990's the amount of people who did not know their political affiliations dropped drastically. This number has been slightly increasing toward current day though. Additionally, all affilitations seem to ebb and flow with periods of about 5 years. An increasing amount of respondents have no answer. There was a large independent push around the mid 2000's and not str democrats seem to be tapering off slowly.
+
+## Q3: Does Race have any relationship with Political affiliation?
+
+```{r}
+ggplot(dat, aes(x = Political, fill = Race)) + coord_flip() + geom_bar(position = "fill")
+```
+
+It does seem that political affiliations have a differing race make up. For example, republicans tend to be almost entirely white, while democrats have a much higher minority proportion (especially black). This relationship holds for independents as well as varying levels of strength. Additionally, a relatively high proportion of minorities had no answer or did not know.
+
+## Q4: How does race influence happiness?
+
+```{r}
+ggplot(dat, aes(x = Happy, fill = Race)) + coord_flip() + geom_bar(position = "fill")
+```
+
+There is a clear relationship between race and happiness. Proportion of whites increase as happiness increases, and non-whites have the inverse relationship. This insinuates that whites are happier in general than non-whites. It is not a very powerful relationship, but it exists nonetheless.
